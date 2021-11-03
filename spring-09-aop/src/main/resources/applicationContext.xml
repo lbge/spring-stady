@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <!--第一种AOP配置方式-->
+    <!--因为Log和AfterLog分别实现不同的接口，因此可以区分切面的位置-->
+     <bean id="userService" class="com.linge.service.UserServiceImpl"/>
+     <bean id="log" class="com.linge.log.Log"/>
+     <bean id="afterLog" class="com.linge.log.AfterLog"/>
+
+     <aop:config>
+         <!--配置切点-->
+         <aop:pointcut id="pointcut" expression="execution(* com.linge.service.UserServiceImpl.*(..))"/>
+         <!--执行环绕; advice-ref执行方法 . pointcut-ref切入点-->
+         <aop:advisor advice-ref="afterLog" pointcut-ref="pointcut"/>
+         <aop:advisor advice-ref="log" pointcut-ref="pointcut"/>
+     </aop:config>
+
+    <!--第二种配置方式-->
+    <!--<bean id="userService" class="com.linge.service.UserServiceImpl"/>
+    <bean id="diy" class="com.linge.diy.DiyPointCut"/>
+
+    <aop:config>
+        &lt;!&ndash;第二种方式：使用AOP的标签实现&ndash;&gt;
+        <aop:aspect ref="diy">
+            <aop:pointcut id="diyPointCut" expression="execution(* com.linge.service.UserServiceImpl.*(..))"/>
+            <aop:before method="before" pointcut-ref="diyPointCut"/>
+            <aop:after method="after" pointcut-ref="diyPointCut"/>
+        </aop:aspect>
+    </aop:config>-->
+
+    <!--第三种配置AOP的方式:注解实现-->
+    <!--自己设计一个切面类，然后作为一个bean注入到spring容器中-->
+    <!--<bean id="userService" class="com.linge.service.UserServiceImpl"/>
+    <bean id="annotationPointCut" class="com.linge.diy.AnnotationPointCut"/>
+    <aop:aspectj-autoproxy/>-->
+
+</beans>

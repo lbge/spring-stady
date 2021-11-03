@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="address" class="com.linge.pojo.Address">
+        <property name="address" value="lz"/>
+    </bean>
+    <bean id="student" class="com.linge.pojo.Student">
+        <!--普通值注入，通过property属性注入-->
+        <property name="name" value="linbo"/>
+        <property name="address" ref="address"/>
+        <property name="book">
+            <array>
+                <value>三国演义</value>
+                <value>水浒传</value>
+                <value>红楼梦</value>
+            </array>
+        </property>
+
+        <property name="hobbys">
+            <list>
+                <value>Music</value>
+                <value>Dance</value>
+            </list>
+        </property>
+
+        <property name="card">
+            <map>
+                <entry key="ID" value="123456"/>
+                <entry key="IC" value="666666"/>
+                <entry key="IOT" value="000000"/>
+            </map>
+        </property>
+
+        <property name="games">
+            <set>
+                <value>LOL</value>
+                <value>COC</value>
+            </set>
+        </property>
+
+        <property name="wife">
+            <null/>
+        </property>
+
+        <property name="info">
+            <props>
+                <prop key="xuehao">13579</prop>
+                <prop key="xingming">ll</prop>
+                <prop key="age">19</prop>
+            </props>
+        </property>
+    </bean>
+
+
+</beans>
